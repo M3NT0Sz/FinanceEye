@@ -15,6 +15,11 @@ class AccountController extends Controller
         return view('accounts.index');
     }
 
+    public function create()
+    {
+        return view('accounts.create');
+    }
+
     /**
      * Store a newly created resource in storage.
      */
