@@ -23,7 +23,9 @@
             @include('parts.main')
             <!--begin::App Content-->
             <div class="app-content">
-                @yield('content')
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
             </div>
         </main>
         @include('parts.footer')

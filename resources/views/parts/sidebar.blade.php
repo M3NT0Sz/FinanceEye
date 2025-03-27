@@ -1,8 +1,7 @@
 <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
     <div class="sidebar-brand">
         <a href="./index.html" class="brand-link">
-            <img src=" {{ Vite::asset('resources/images/Logo.png') }} " alt="FinanceEye Logo"
-                class="brand-image" />
+            <img src=" {{ Vite::asset('resources/images/Logo.png') }} " alt="FinanceEye Logo" class="brand-image" />
             <span class="brand-text fw-light">FinanceEye</span>
         </a>
     </div>
@@ -37,6 +36,12 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('accounts.index') }}" class="nav-link">
+                        <i class="nav-icon bi bi-receipt"></i>
+                        <p>Receipt</p>
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a href="./generate/theme.html" class="nav-link">
