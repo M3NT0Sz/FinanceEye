@@ -54,7 +54,7 @@
             </div>
             <div class="col">
                 <label class="form-label">Current Balance</label>
-                <input type="text" name="current_balance" class="form-control" value="{{ old('current_balance', '0,00') }}"
+                <input type="text" name="current_balance" class="form-control" value="{{ old('current_balance', '0.00') }}"
                     oninput="this.value = formatCurrency(this.value).replace(',', '.');">
                 @error('currency_balance')
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -88,6 +88,7 @@
             @enderror
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
+        <a class="text-decoration-none" href="{{ route('accounts.index') }}">Back</a>
     </form>
 @endsection
 @section('js')
