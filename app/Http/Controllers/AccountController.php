@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use Gate;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
@@ -12,7 +13,8 @@ class AccountController extends Controller
      */
     public function index()
     {
-        return view('accounts.index');
+        $accounts = Account::where('user_id', 1)->get();
+        return view('accounts.index', compact('accounts'));
     }
 
     public function create()
@@ -25,7 +27,35 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inputs = $request->validate([
+            'name' => 'required',
+            'type' => 'required',
+            'initial_balance' => 'required',
+            'current_balance' => 'required',
+            'currency' => 'required',
+            'description' => 'nullable|string'
+        ]);
+
+        Account::create(array_merge($inputs, [
+            'user_id' => 1,
+            'is_active' => true,
+        ]));
+
+        return redirect()->route('accounts.index')->with('success', 'Account created successfully.');
+    }
+
+    public function toggleActive(Request $request, $id)
+    {
+        $account = Account::findOrFail($id);
+        $account->is_active = !$account->is_active;
+        $account->save();
+
+        return redirect()->route('accounts.index')->with('success', 'Account status updated successfully.');
+    }
+
+    public function edit(Account $account)
+    {
+        return view('accounts.edit', compact('account'));
     }
 
     /**
@@ -41,7 +71,18 @@ class AccountController extends Controller
      */
     public function update(Request $request, Account $account)
     {
-        //
+        $inputs = $request->validate([
+            'name' => 'required',
+            'type' => 'required',
+            'initial_balance' => 'required',
+            'current_balance' => 'required',
+            'currency' => 'required',
+            'description' => 'nullable|string'
+        ]);
+
+        $account->update($inputs);
+
+        return redirect()->route('accounts.index')->with('success', 'Account updated successfully.');
     }
 
     /**
@@ -49,6 +90,8 @@ class AccountController extends Controller
      */
     public function destroy(Account $account)
     {
-        //
+        $account->delete();
+
+        return redirect()->route('accounts.index')->with('success', 'Account deleted successfully.');
     }
 }

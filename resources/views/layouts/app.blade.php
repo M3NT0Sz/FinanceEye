@@ -30,5 +30,6 @@
         </main>
         @include('parts.footer')
     </div>
+    @yield('js')
     @vite('resources/js/app.js')
 </body>
